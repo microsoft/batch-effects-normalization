@@ -117,7 +117,7 @@ soupsieve==2.3.2.post1
 tensorboard==1.15.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
-tensorflow==1.15.0
+tensorflow==2.7.2
 tensorflow-estimator==1.15.1
 tensorflow-io-gcs-filesystem==0.26.0
 termcolor==1.1.0
