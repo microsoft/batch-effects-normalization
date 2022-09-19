@@ -1,33 +1,8 @@
-# Project
+# Details on Directory Structure
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
-
-As the maintainer of this project, please make a few updates:
-
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
-
-## Contributing
-
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+- The executable scripts live in the root directory.  You will see names like "train_erm.py", "train_simclr.py" etc. -- these refer to the different experiments you can run. 
+- Each executable Python file (e.g. "train_erm.py") has a corresponding config YAML file in the configs directory (e.g. "configs/train_erm.yaml").  Using the config, you can edit the hyperparameters for each script.  For example, if you want to change the batch size during training, you can just change "train_batch_size: 75" in the current YAML file to whatever you want.  (Note: 75 is what I used for all supervised learning experiments.  For self-supervised learning experiments, I am already using the full plate during training.  You may also notice "eval_batch_size: ~" in the file.  This is because for evaluation, no batch size needs to be entered due to the earlier argument "eval_plate_sampler: True" forcing the whole plate to be used during evaluation.)    
+- "biomass" directory: This is where the main parts of the code lives.  If you would like to look into the implementation details behind the models, the datasets, the dataloaders, etc., you can find them here.
+- "outputs" directory: I'm using an experiment manager called Hydra.  Whenever you run a script, it will dump the current state of the corresponding YAML into a time-stamped folder in this directory.  This way, you can go back and look at what hyperparameters you used for that run in case you change the YAML later. 
+- "runs" directory: For each run, a TensorBoard file will be created in this directory based on the timestamp (usually the same as the timestamp used in the "outputs" directory, though it may be ~1 second off for certain runs).  You can use this TensorBoard file to monitor results as the model trains (I record metrics such as loss, accuracy, etc.)
+- "checkpoints" directory: If you have "save_model: True" in a YAML file, a corresponding checkpoint of the PyTorch model will be dumped in this directory.  The checkpoint is again named by the timestamp of the run.  
