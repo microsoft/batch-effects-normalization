@@ -1,0 +1,39 @@
+dataloaders:
+  _target_: biomass.dataloaders.RxRx1WildsCellDataloaders
+  eval_splits: 
+    - val
+    - iid_val
+  train_transform:
+    _target_: biomass.transforms.Compose
+    transforms:
+    - _target_: biomass.transforms.ToLongTensor
+  eval_transform:
+    _target_: biomass.transforms.Compose
+    transforms: 
+    - _target_: biomass.transforms.ToLongTensor
+  img_dir: ../rxrx1_cells
+  summary_file: ../summary_rxrx1.csv
+  mode: all
+  sampler: plate
+  include_labels: True
+  metadata_file: data/rxrx1_v1.0/metadata.csv
+device: cuda
+optimizer: adam
+learning_rate: 1e-1
+weight_decay: 0
+num_epochs: 30
+train_batch_size: ~
+eval_batch_size: ~
+pooler: 
+  _target_: biomass.poolers.MeanPooler
+  # _target_: biomass.poolers.AttentionPooler
+  # dims: 
+  # - 2048
+  # - 512
+in_features: 2048
+out_features: 1139
+clip_grad_norm: 5
+save_model: False
+normalize: False
+normalize_img_feats: False
+save_key: val

@@ -1,0 +1,26 @@
+dataloaders:
+  _target_: biomass.dataloaders.RxRx1Dataloaders
+  eval_splits: 
+    - val
+    - test
+  train_groupby: 
+    - experiment
+    - plate
+  max_groups: 1
+  eval_plate_sampler: True
+model:
+  _target_: biomass.models.TorchVisionClassifier
+  key: resnet50
+  classifier: fc
+  d_out: 1139
+  pretrained: True
+device: cuda
+learning_rate: 1e-3
+weight_decay: 1e-5
+num_warmup_epochs: 10
+num_epochs: 90
+train_batch_size: 75
+eval_batch_size: ~
+save_model: True
+compute_train_acc: False
+use_train_at_eval: True

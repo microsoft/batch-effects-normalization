@@ -1,0 +1,65 @@
+dataloaders:
+  _target_: biomass.dataloaders.RxRx1Dataloaders
+  eval_splits: 
+    - val
+  train_transform:
+    _target_: biomass.transforms.MultiView
+    n_views: 2
+    transform:
+      _target_: biomass.transforms.Compose
+      transforms:
+      - _target_: biomass.transforms.RandomRotate
+      - _target_: biomass.transforms.RandomHorizontalFlip
+      - _target_: biomass.transforms.RandomResizedCrop
+        size: [256, 256]
+      # - _target_: biomass.transforms.RandomApply
+      #   transforms:
+      #     - _target_: biomass.transforms.ColorJitter
+      #       brightness: 0.8
+      #       contrast: 0.8
+      #       saturation: 0.8
+      #       hue: 0.2
+      #   p: 0.8
+      # - _target_: biomass.transforms.RandomGrayscale
+      #   p: 0.2
+      # - _target_: biomass.transforms.GaussianBlur
+      #   kernel_size: 25
+      #   sigma: [0.1, 2.0]
+      - _target_: biomass.transforms.ToTensor
+      # - _target_: biomass.transforms.Quartering
+      #   p: 1.0
+      - _target_: biomass.transforms.Standardize
+        dim: [-2, -1]
+  train_groupby:
+    - "y"
+  max_groups: 32
+  cross_product: False
+model:
+  _target_: biomass.models.ContrastiveLearner
+  encoder:
+    _target_: biomass.models.TorchVisionEncoder
+    name: resnet50
+    classifier_key: fc
+    pretrained: True
+  classifier:
+    _target_: biomass.models.Linear
+    in_features: 2048
+    out_features: 1139
+    bias: True
+  proj_nonlinear: True
+  proj_in: 2048
+  proj_out: 128 
+device: cuda
+learning_rate: 1e-4
+weight_decay: 0
+num_epochs: 90
+num_warmup_epochs: 10
+train_batch_size: 320
+eval_batch_size: 512
+temperature: 0.2
+base_temperature: 0.2
+knn_neighbors:
+  - 10
+  - 50
+  - 200
+save_model: True

@@ -1,0 +1,48 @@
+dataloaders:
+  _target_: biomass.dataloaders.RxRx1WildsCellDataloaders
+  eval_splits: 
+    - val
+    - iid_val
+  train_transform:
+    _target_: biomass.transforms.Compose
+    transforms:
+    - _target_: biomass.transforms.RandomRotate
+    - _target_: biomass.transforms.RandomHorizontalFlip
+    # - _target_: biomass.transforms.RandomResizedCrop
+    #   size: [48, 48]
+    # - _target_: biomass.transforms.GaussianBlur
+    #   kernel_size: 25
+    #   sigma: [0.1, 0.5]
+    - _target_: biomass.transforms.ToTensor
+    - _target_: biomass.transforms.Standardize
+      dim: [-2, -1]
+  eval_transform:
+    _target_: biomass.transforms.Compose
+    transforms:
+    - _target_: biomass.transforms.ToTensor
+    - _target_: biomass.transforms.Standardize
+      dim: [-2, -1]
+  img_dir: ../rxrx1_cells
+  summary_file: ../summary_rxrx1.csv
+  mode: random
+  sampler: random
+  num_img: 5
+  num_plates_per_batch: 1
+  include_labels: True
+  metadata_file: data/rxrx1_v1.0/metadata.csv
+model:
+  _target_: biomass.models.TorchVisionClassifier
+  key: resnet50
+  classifier: fc
+  d_out: 1139
+  pretrained: True
+device: cuda
+learning_rate: 1e-3
+weight_decay: 0
+num_epochs: 500
+num_warmup_epochs: 50
+train_batch_size: 300
+eval_batch_size: 300
+save_model: True
+no_eval: False
+clip_grad_norm: ~
