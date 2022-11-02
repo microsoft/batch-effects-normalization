@@ -87,7 +87,7 @@ Pillow==9.2.0
 platformdirs==2.5.2
 prometheus-client==0.14.1
 prompt-toolkit==3.0.30
-protobuf==3.19.4
+protobuf==3.19.5
 psutil==5.9.1
 ptyprocess==0.7.0
 pyasn1==0.4.8
