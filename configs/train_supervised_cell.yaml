@@ -22,14 +22,14 @@ dataloaders:
     - _target_: biomass.transforms.ToTensor
     - _target_: biomass.transforms.Standardize
       dim: [-2, -1]
-  img_dir: ../rxrx1_cells
-  summary_file: ../summary_rxrx1.csv
+  img_dir: rxrx1_cells
+  summary_file: misc/summary_rxrx1.csv
   mode: random
   sampler: random
   num_img: 5
   num_plates_per_batch: 1
   include_labels: True
-  metadata_file: data/rxrx1_v1.0/metadata.csv
+  metadata_file: misc/metadata.csv
 model:
   _target_: biomass.models.TorchVisionClassifier
   key: resnet50

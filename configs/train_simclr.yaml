@@ -22,9 +22,9 @@ dataloaders:
     - _target_: biomass.transforms.ToTensor
     - _target_: biomass.transforms.Standardize
       dim: [-2, -1]
-  img_dir: ../rxrx1_cells
-  summary_file: ../summary_rxrx1.csv
-  mode: random
+  img_dir: rxrx1_cells
+  summary_file: misc/summary_rxrx1.csv
+  mode: random_single
   sampler: random
   num_img: 2
   num_plates_per_batch: 1
