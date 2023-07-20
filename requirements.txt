@@ -94,7 +94,7 @@ pyasn1==0.4.8
 pyasn1-modules==0.2.8
 -e git+https://github.com/giacomodeodato/pybbbc.git@27d6289d231f869561e0515ecce4934a8e744f39#egg=pybbbc
 pycparser==2.21
-Pygments==2.12.0
+Pygments==2.15.0
 pyjanitor==0.23.1
 pyparsing==3.0.9
 pyrsistent==0.18.1
