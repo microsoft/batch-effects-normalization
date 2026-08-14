@@ -43,14 +43,14 @@ def train_classifier(config: DictConfig) -> None:
 
     model = instantiate(config.model)
     if config.model_path is not None:
-        model.load_state_dict(torch.load(config.model_path))
+        model.load_state_dict(torch.load(config.model_path), weights_only=True)
 
     if config.sup_model_path is not None:
         print("Using supervised model")
         sup_model = TorchVisionClassifier(
             key="resnet50", classifier="fc", d_out=1139, pretrained=True
         )
-        sup_model.load_state_dict(torch.load(config.sup_model_path))
+        sup_model.load_state_dict(torch.load(config.sup_model_path), weights_only=True)
         sup_model.model.fc = Identity()
         model = ContrastiveLearner(
             sup_model, classifier=None, proj_nonlinear=True, proj_in=2048, proj_out=128
