@@ -36,7 +36,7 @@ def train_simclr(config: DictConfig) -> None:
 
     model = instantiate(config.model)
     if config.model_path is not None:
-        model.load_state_dict(torch.load(config.model_path), use_weights=True)
+        model.load_state_dict(torch.load(config.model_path), weights_only=True)
 
     if config.use_domain_batch_norm:
         for m in model.modules():
