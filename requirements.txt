@@ -46,7 +46,7 @@ jsonschema==4.7.2
 jupyter-client==7.3.4
 jupyter-core==4.11.1
 jupyterlab-pygments==0.2.2
-Keras==2.2.4
+Keras==3.15.0
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.2
 kiwisolver==1.4.3
