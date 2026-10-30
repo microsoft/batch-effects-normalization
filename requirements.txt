@@ -8,7 +8,7 @@ attrs==21.4.0
 backcall==0.2.0
 backports.cached-property==1.0.2
 beautifulsoup4==4.11.1
-black==22.6.0
+black==26.10.1
 bleach==5.0.1
 cachetools==5.2.0
 # certifi @ file:///opt/conda/conda-bld/certifi_1655968806487/work/certifi
